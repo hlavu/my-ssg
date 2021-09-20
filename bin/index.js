@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var pjson = require("../package.json");
-var folder = require("./modules/readFolder");
-var file = require("./modules/readFile");
-var path = require("path");
+const pjson = require("../package.json");
+const folder = require("./modules/readFolder");
+const file = require("./modules/readFile");
+const path = require("path");
 const fs = require("fs");
 const chalk = require("chalk");
 var cssLink = "";
@@ -38,20 +38,16 @@ if (argv.stylesheet !== "") {
   cssLink = argv.stylesheet;
 }
 
-// delete output folder "dist" if it exists then create new one
+// delete output folder "dist" then create new one
 const htmlContainer = "./dist";
-if (!fs.existsSync(htmlContainer)) {
-  fs.mkdirSync(htmlContainer);
-} else {
-  fs.rmdirSync(htmlContainer, { recursive: true }, (err) => {
-    if (err) {
-      throw err;
-    }
-  });
-
-  fs.mkdirSync(htmlContainer);
-  console.log(chalk.bold.green('dist folder is created successfully!'));
+try {
+  fs.rmdirSync(htmlContainer, { recursive: true });
+} catch (err) {
+  //ignore err
 }
+
+fs.mkdirSync(htmlContainer);
+console.log(chalk.bold.green("dist folder is created successfully!"));
 
 // check input path status
 fs.stat(argv.input.join(" "), (err, stats) => {
@@ -61,9 +57,9 @@ fs.stat(argv.input.join(" "), (err, stats) => {
   }
 
   if (stats.isDirectory()) {
-    folder.readFolder(argv.input.join(" "), cssLink, htmlContainer);  // folder
+    folder.readFolder(argv.input.join(" "), cssLink, htmlContainer); // folder
   } else if (stats.isFile() && path.extname(argv.input.join(" ")) === ".txt") {
-    file.readFile(argv.input.join(" "), cssLink, htmlContainer);      // file
+    file.readFile(argv.input.join(" "), cssLink, htmlContainer); // file
   } else {
     console.log("Invalid file extension, it should be .txt");
   }

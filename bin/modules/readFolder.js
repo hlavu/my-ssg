@@ -1,7 +1,7 @@
 const fs = require("fs");
-var fileModule = require("./readFile");
-var html = require("./generateHTML");
-var path = require("path");
+const fileModule = require("./readFile");
+const html = require("./generateHTML");
+const path = require("path");
 var body = "";
 
 module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
@@ -10,9 +10,11 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
       return console.log(err);
     }
 
-    var sortedFile = files.filter(file => path.extname(`${inputPath}/${file}`) === ".txt");
+    var sortedFile = files.filter(
+      (file) => path.extname(`${inputPath}/${file}`) === ".txt"
+    );
+    
     sortedFile.forEach(function (file) {
-
       var fileName = fileModule.readFile(
         `${inputPath}/${file}`,
         cssLink,
