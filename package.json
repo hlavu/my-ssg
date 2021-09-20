@@ -13,8 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",
-    "chart.js": "^3.5.1",
-    "chartjs-node-canvas": "^3.2.0",
     "create-html": "^4.1.0",
     "version": "^0.1.2",
     "yargs": "^17.1.1"
