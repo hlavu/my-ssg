@@ -3,6 +3,7 @@
 const pjson = require("../package.json");
 const folder = require("./modules/readFolder");
 const file = require("./modules/readFile");
+const { readMDFile } = require("./modules/readMDFile");
 const path = require("path");
 const fs = require("fs");
 const chalk = require("chalk");
@@ -62,7 +63,9 @@ fs.stat(argv.input.join(" "), (err, stats) => {
         stats.isFile() &&
         path.extname(argv.input.join(" ")) === ".txt"
     ) {
-        file.readFile(argv.input.join(" "), cssLink, htmlContainer); // file
+        file.readFile(argv.input.join(" "), cssLink, htmlContainer); // text file
+    } else if (stats.isFile() && path.extname(argv.input.join(" ")) === ".md") {
+        readMDFile(argv.input.join(" "), cssLink, htmlContainer); // markdown file
     } else {
         console.log("Invalid file extension, it should be .txt");
     }
