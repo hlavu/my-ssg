@@ -1,6 +1,6 @@
 const fs = require("fs");
 const fileModule = require("./readFile");
-const readMDFile = require("./readMDFile");
+const { readMDFile } = require("./readMDFile");
 const html = require("./generateHTML");
 const path = require("path");
 var body = "";
