@@ -15,12 +15,21 @@ Option | Function
 -s, --stylesheet <'link-to-css-stylesheet'> | applies css link to `<head>` of HTML file
 
 ## Usage
+1. Convert `testing.txt` into `testing.html`
+
 ```
 node index.js -i testing.txt 
+```
+2. Convert all `.txt` files in testing folder into `.html` files
+
+```
 node index.js -i testing
+```
+3. Convert `Silver Blaze.txt` into `Silver Blaze.html` which takes `https://cdn.jsdelivr.net/npm/water.css@2/out/water.css` as its style sheet
+
+```
 node index.js -i 'Silver Blaze.txt' -s 'https://cdn.jsdelivr.net/npm/water.css@2/out/water.css'
 ```
-
 ## Example 
 
 testing.txt   -> command: `node index.js -i testing.txt -s https://cdn.jsdelivr.net/npm/water.css@2/out/water.css`
