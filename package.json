@@ -1,20 +1,20 @@
 {
-  "name": "ssg-cli",
-  "version": "1.0.0",
-  "description": "a command line tool converts content of .txt files into .html files",
-  "main": "bin/index.js",
-  "bin": {
-    "static-site-generator-cli": "./bin/index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Vivian Vu",
-  "license": "MIT",
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "create-html": "^4.1.0",
-    "version": "^0.1.2",
-    "yargs": "^17.1.1"
-  }
+    "name": "ssg-cli",
+    "version": "1.0.0",
+    "description": "a command line tool converts content of .txt files into .html files",
+    "main": "bin/index.js",
+    "bin": {
+        "static-site-generator-cli": "./bin/index.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Vivian Vu",
+    "license": "MIT",
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "create-html": "^4.1.0",
+        "version": "^0.1.2",
+        "yargs": "^17.1.1"
+    }
 }
