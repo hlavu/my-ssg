@@ -27,6 +27,11 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
             body += `<h5><a href=\"${url}\">${fileName}</h5>\n`;
         });
 
+        // Sorted the array of directory's content and filter only ".md" files
+        var sortedMDFile = files.filter(
+            (file) => path.extname(`${inputPath}/${file}`) === ".md"
+        );
+
         // create index.html
         html.generateHTML(
             "index",
