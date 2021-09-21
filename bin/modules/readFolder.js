@@ -1,5 +1,6 @@
 const fs = require("fs");
 const fileModule = require("./readFile");
+const readMDFile = require("./readMDFile");
 const html = require("./generateHTML");
 const path = require("path");
 var body = "";
@@ -31,6 +32,19 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
         var sortedMDFile = files.filter(
             (file) => path.extname(`${inputPath}/${file}`) === ".md"
         );
+
+        sortedMDFile.forEach(function (file) {
+            var fileName = readMDFile(
+                `${inputPath}/${file}`,
+                cssLink,
+                outputContainer
+            );
+
+            var url = `./${encodeURI(fileName)}.html`;
+
+            // Add links of the generated HTML files to index.html body
+            body += `<h5><a href=\"${url}\">${fileName}</h5>\n`;
+        });
 
         // create index.html
         html.generateHTML(
