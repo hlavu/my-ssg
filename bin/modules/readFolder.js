@@ -25,7 +25,7 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
             const url = `./${encodeURI(fileName)}.html`;
 
             // index.html body
-            body += `<h5><a href=\"${url}\">${fileName}</h5>\n`;
+            body += `<a href=\"${url}\">${fileName}</a>\n`;
         });
 
         // Sorted the array of directory's content and filter only ".md" files
@@ -43,7 +43,7 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
             const url = `./${encodeURI(fileName)}.html`;
 
             // Add links of the generated HTML files to index.html body
-            body += `<h5><a href=\"${url}\">${fileName}</h5>\n`;
+            body += `<a href=\"${url}\">${fileName}</a>\n`;
         });
 
         // create index.html
