@@ -7,7 +7,7 @@ const { readMDFile } = require("./modules/readMDFile");
 const path = require("path");
 const fs = require("fs");
 const chalk = require("chalk");
-var cssLink = "";
+let cssLink = "";
 
 const argv = require("yargs")
     .usage("Usage: $0 --input <filename>  [-s <css-link>]")

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const html = require("./generateHTML");
 const path = require("path");
-var body = "";
+let body = "";
 
 module.exports.readMDFile = function (inputPath, cssLink, outputContainer) {
     try {
