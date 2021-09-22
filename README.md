@@ -42,11 +42,16 @@ node index.js -i testing
 
 ```
 node index.js -i 'Silver Blaze.txt' -s 'https://cdn.jsdelivr.net/npm/water.css@2/out/water.css'
+
 ```
 
 ## Example
 
 1. testing.txt -> command: `node index.js -i testing.txt -s https://cdn.jsdelivr.net/npm/water.css@2/out/water.css`
+
+```
+node index.js -i 'Silver Blaze.txt' -s 'https://cdn.jsdelivr.net/npm/water.css@2/out/water.css'
+```
 
 ```
 This is a sentence!
