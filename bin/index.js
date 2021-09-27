@@ -6,67 +6,74 @@ const file = require("./modules/readFile");
 const { readMDFile } = require("./modules/readMDFile");
 const path = require("path");
 const fs = require("fs");
+const fsPromise = require("fs-promise");
 const chalk = require("chalk");
+const htmlContainer = "./dist";
 let cssLink = "";
 
 const argv = require("yargs")
-    .usage("Usage: $0 --input <filename>  [-s <css-link>]")
-    .option("i", {
-        alias: "input",
-        describe: ".txt file name",
-        type: "array",
-        demandOption: true,
-    })
-    .option("s", {
-        alias: "stylesheet",
-        describe: "css link",
-        default: "",
-        type: "string",
-        demandOption: false,
-    })
-    // .option("o", {
-    //   alias: "output",
-    //   describe: "store output directory",
-    //   type: "string",
-    //   demandOption: false,
-    // })
-    .alias("v", "version")
-    .version(pjson.name + " " + pjson.version)
-    .alias("h", "help")
-    .help().argv;
+  .usage("Usage: $0 --input <filename>  [-s <css-link>]")
+  .option("i", {
+    alias: "input",
+    describe: ".txt file name",
+    type: "array",
+    demandOption: true,
+  })
+  .option("s", {
+    alias: "stylesheet",
+    describe: "css link",
+    default: "",
+    type: "string",
+    demandOption: false,
+  })
+  .alias("v", "version")
+  .version(pjson.name + " " + pjson.version)
+  .alias("h", "help")
+  .help().argv;
 
 if (argv.stylesheet !== "") {
-    cssLink = argv.stylesheet;
+  cssLink = argv.stylesheet;
 }
 
-// delete output folder "dist" then create new one
-const htmlContainer = "./dist";
-try {
-    fs.rmdirSync(htmlContainer, { recursive: true });
-} catch (err) {
-    //ignore err
-}
-
-fs.mkdirSync(htmlContainer);
-console.log(chalk.bold.green("dist folder is created successfully!"));
+checkInput();
 
 // check input path status
-fs.stat(argv.input.join(" "), (err, stats) => {
+async function checkInput() {
+  await trackDistFolder();
+  fs.stat(argv.input.join(" "), (err, stats) => {
     if (err) {
-        console.error(err);
-        return;
+      console.log(chalk.bold.red(`${argv.input.join(" ")} does not exist!`));
+      return process.exit(-1);
     }
 
     if (stats.isDirectory()) {
-        folder.readFolder(argv.input.join(" "), cssLink, htmlContainer); // folder
+      folder.readFolder(argv.input.join(" "), cssLink, htmlContainer); // folder
     } else if (
-        stats.isFile() &&
-        path.extname(argv.input.join(" ")) === ".txt"
+      stats.isFile() &&
+      path.extname(argv.input.join(" ")) === ".txt"
     ) {
-        file.readFile(argv.input.join(" "), cssLink, htmlContainer); // text file
+      file.readFile(argv.input.join(" "), cssLink, htmlContainer); // text file
     } else if (stats.isFile() && path.extname(argv.input.join(" ")) === ".md") {
-        readMDFile(argv.input.join(" "), cssLink, htmlContainer); // markdown file
+      readMDFile(argv.input.join(" "), cssLink, htmlContainer); // markdown file
     } else {
-        console.log("Invalid file extension, it should be .txt");
+      console.log("Invalid file extension, it should be .txt or .md");
     }
-});
+  });
+}
+
+// delete output folder "dist" then create new one
+async function trackDistFolder() {
+  try {
+    await fsPromise.rmdir(htmlContainer, { recursive: true });
+  } catch (err) {
+    //ignore err
+  }
+
+  try {
+    await fsPromise.mkdir(htmlContainer);
+    console.log(chalk.bold.green("dist folder is created successfully!"));
+  } catch (err) {
+    console.log(chalk.bold.red("Cannot create dist folder!"));
+    return process.exit(-1);
+  }
+}
