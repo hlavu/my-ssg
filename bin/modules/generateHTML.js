@@ -18,7 +18,7 @@ module.exports.generateHTML = function (
   });
 
   fs.writeFile(`${htmlContainer}/${title}.html`, html, (err) => {
-    if (err) console.log("Here" + err);
+    if (err) console.log(err);
   });
 
   if (title === "index") {
