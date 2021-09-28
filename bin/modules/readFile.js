@@ -3,7 +3,12 @@ const html = require("./generateHTML");
 const path = require("path");
 let body = "";
 
-module.exports.readFile = function (inputPath, cssLink, outputContainer) {
+module.exports.readFile = function (
+  inputPath,
+  cssLink,
+  language,
+  outputContainer
+) {
   try {
     const data = fs.readFileSync(inputPath, "utf8");
     body = data
@@ -16,6 +21,6 @@ module.exports.readFile = function (inputPath, cssLink, outputContainer) {
 
   const title = path.basename(inputPath, ".txt");
 
-  html.generateHTML(title, cssLink, body, outputContainer);
+  html.generateHTML(language, title, cssLink, body, outputContainer);
   return title;
 };

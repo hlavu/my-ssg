@@ -3,7 +3,12 @@ const html = require("./generateHTML");
 const path = require("path");
 let body = "";
 
-module.exports.readMDFile = function (inputPath, cssLink, outputContainer) {
+module.exports.readMDFile = function (
+  inputPath,
+  cssLink,
+  language,
+  outputContainer
+) {
   try {
     const data = fs.readFileSync(inputPath, "utf8");
     body = data
@@ -26,6 +31,6 @@ module.exports.readMDFile = function (inputPath, cssLink, outputContainer) {
 
   const title = path.basename(inputPath, ".md");
 
-  html.generateHTML(title, cssLink, body, outputContainer);
+  html.generateHTML(language, title, cssLink, body, outputContainer);
   return title;
 };

@@ -5,7 +5,12 @@ const html = require("./generateHTML");
 const path = require("path");
 let body = "";
 
-module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
+module.exports.readFolder = function (
+  inputPath,
+  cssLink,
+  language,
+  outputContainer
+) {
   fs.readdir(inputPath, (err, files) => {
     if (err) {
       return console.log(err);
@@ -19,6 +24,7 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
       const fileName = fileModule.readFile(
         `${inputPath}/${file}`,
         cssLink,
+        language,
         outputContainer
       );
 
@@ -37,6 +43,7 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
       const fileName = readMDFile(
         `${inputPath}/${file}`,
         cssLink,
+        language,
         outputContainer
       );
 
@@ -48,6 +55,7 @@ module.exports.readFolder = function (inputPath, cssLink, outputContainer) {
 
     // create index.html
     html.generateHTML(
+      language,
       "index",
       cssLink,
       `<h4>Generated Sites</h4>\n${body}`,

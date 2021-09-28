@@ -12,7 +12,7 @@ const htmlContainer = "./dist";
 let cssLink = "";
 
 const argv = require("yargs")
-  .usage("Usage: $0 --input <filename>  [-s <css-link>]")
+  .usage("Usage: $0 --input <filename>  [-s <css-link>] [-l <lang-code>]")
   .option("i", {
     alias: "input",
     describe: ".txt file name",
@@ -23,6 +23,13 @@ const argv = require("yargs")
     alias: "stylesheet",
     describe: "css link",
     default: "",
+    type: "string",
+    demandOption: false,
+  })
+  .option("l", {
+    alias: "lang",
+    describe: "language used in HTML",
+    default: "en-CA",
     type: "string",
     demandOption: false,
   })
@@ -47,14 +54,19 @@ async function checkInput() {
     }
 
     if (stats.isDirectory()) {
-      folder.readFolder(argv.input.join(" "), cssLink, htmlContainer); // folder
+      folder.readFolder(
+        argv.input.join(" "),
+        cssLink,
+        argv.lang,
+        htmlContainer
+      ); // folder
     } else if (
       stats.isFile() &&
       path.extname(argv.input.join(" ")) === ".txt"
     ) {
-      file.readFile(argv.input.join(" "), cssLink, htmlContainer); // text file
+      file.readFile(argv.input.join(" "), cssLink, argv.lang, htmlContainer); // text file
     } else if (stats.isFile() && path.extname(argv.input.join(" ")) === ".md") {
-      readMDFile(argv.input.join(" "), cssLink, htmlContainer); // markdown file
+      readMDFile(argv.input.join(" "), cssLink, argv.lang, htmlContainer); // markdown file
     } else {
       console.log("Invalid file extension, it should be .txt or .md");
     }
