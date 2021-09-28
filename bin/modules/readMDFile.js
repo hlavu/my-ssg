@@ -14,6 +14,8 @@ module.exports.readMDFile = function (
     body = data
       // Search for all occurences of Markdown links and replace them with the corresponding <a> tags.
       .replace(/(?<!!)\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
+      .replace(/`([^`].*?)`/gim, "<code>$1</code>") // Search for all occurences of Inline code and replace them with the corresponding <code> tags.
+      .replace(/---\r?\n/gim, "<hr>") // Search for all occurences of horizontal rules and replace them with the corresponding <hr> tag.
       .split(/\r?\n\r?\n/)
       .map((para) => {
         // For each "paragraph", search for any occurence of Markdown heading (# [string] or ## [string]) and replace them with the corresponding HTML header tag (h1 or h2). If heading not found, replace the "paragraph" with <p> tag.
