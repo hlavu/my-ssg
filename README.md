@@ -4,10 +4,10 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 
 ## Features
 
--   Allows user to specify a URL to a `CSS stylesheet` if they hope to
+-   Allows user to specify a URL to a `CSS stylesheet` or a language used in the created HTML files if they hope to
 -   If users' input is a folder, an `index.html` file will be generated automatically and linked to other generated HTML files.
 -   All generated HTML files will be stored in `./dist` folder which is created by default
--   If the input is a markdown file, all Markdown's `Heading1`, `Heading2`, and `Link` will be converted into their corresponding HTML element.
+-   If the input is a markdown file, all Markdown's `Heading1`, `Heading2`, `Link`, `inline code` and `horizontal rule` will be converted into their corresponding HTML element.
 
 ## Options
 
@@ -17,6 +17,7 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 | -v, --version                               | shows tool's name and the version number            |
 | -h, --help                                  | displays all available options                      |
 | -s, --stylesheet <'link-to-css-stylesheet'> | applies css link to `<head>` of HTML file           |
+| -l, --lang <'lang code'> Default value is `en-CA`| applies specified lang code to `<html>` of HTML file|
 
 ## Usage
 
@@ -45,14 +46,18 @@ node index.js -i 'Silver Blaze.txt' -s 'https://cdn.jsdelivr.net/npm/water.css@2
 
 ```
 
+5. For converting a single text file and specifying a language:
+
+```
+node index.js -i 'Silver Blaze.txt' -l vi
+
+```
+
 ## Example
 
-1. testing.txt -> command: `node index.js -i testing.txt -s https://cdn.jsdelivr.net/npm/water.css@2/out/water.css`
+1. testing.txt -> command: `node index.js -i testing.txt -s https://cdn.jsdelivr.net/npm/water.css@2/out/water.css -l en`
 
-```
-node index.js -i 'Silver Blaze.txt' -s 'https://cdn.jsdelivr.net/npm/water.css@2/out/water.css'
-```
-
+testing.txt
 ```
 This is a sentence!
 
@@ -126,7 +131,7 @@ Transfered into:
 
         <p>
             My Static Site Generator, is a command line tool, created to convert
-            `.txt` or `.md` file into a `.html` file by using Node.js.
+            <code>.txt</code> or <code>.md</code> file into a <code>.html</code> file by using Node.js.
         </p>
 
         <h2>Features:</h2>
@@ -134,7 +139,7 @@ Transfered into:
         <p>
             - Automatically parse title from input. (A title is defined by being
             the first line followed by 2 blank lines) - All generated HTML files
-            will be placed into a `./dist` folder - All generated HTML files
+            will be placed into a <code>./dist</code> folder - All generated HTML files
             comes with
             <a href="https://github.com/kognise/water.css">Water.css</a> by
             default. - Users can specify a URL to a CSS stylesheet.
