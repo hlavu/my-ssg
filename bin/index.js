@@ -50,7 +50,7 @@ if (argv.stylesheet !== "") {
   cssLink = argv.stylesheet;
 }
 
-const filePath = argv.input || argv.config;
+const filePath = argv.config || argv.input;
 if (!filePath) {
   console.log(chalk.bold.red(`Please specify either -i option or -c option`));
 }
