@@ -14,7 +14,7 @@ module.exports.readJson = (inputPath) => {
     const data = JSON.parse(json);
 
     const cssLink = data.stylesheet || "";
-    const lang = data.lang || "";
+    const lang = data.lang || "en-CA";
 
     fs.stat(data.input, (err, stats) => {
       if (err) {
