@@ -18,6 +18,7 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 | -h, --help                                  | displays all available options                      |
 | -s, --stylesheet <'link-to-css-stylesheet'> | applies css link to `<head>` of HTML file           |
 | -l, --lang <'lang code'> Default value is `en-CA`| applies specified lang code to `<html>` of HTML file|
+| -c, --config <'config file'>                | use to store `input` or `output` or `lang` to be processed |
 
 ## Usage
 
@@ -53,6 +54,11 @@ node index.js -i 'Silver Blaze.txt' -l vi
 
 ```
 
+6. For using config file:
+```
+node index.js -c filename.json
+```
+
 ## Example
 
 1. testing.txt -> command: `node index.js -i testing.txt -s https://cdn.jsdelivr.net/npm/water.css@2/out/water.css -l en`
@@ -72,7 +78,7 @@ Transfered into:
 ```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
+    <head>      
         <title>testing</title>
         <meta charset="utf-8" />
 

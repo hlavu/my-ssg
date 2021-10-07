@@ -4,6 +4,7 @@ const pjson = require("../package.json");
 const folder = require("./modules/readFolder");
 const file = require("./modules/readFile");
 const { readMDFile } = require("./modules/readMDFile");
+const { readJson } = require("./modules/readJson");
 const path = require("path");
 const fs = require("fs");
 const fsPromise = require("fs-promise");
@@ -17,7 +18,14 @@ const argv = require("yargs")
     alias: "input",
     describe: ".txt file name",
     type: "array",
-    demandOption: true,
+    demandOption: false,
+  })
+  .options("c", {
+    alias: "config",
+    describe: "configuration file",
+    default: "",
+    type: "array",
+    demandOption: false,
   })
   .option("s", {
     alias: "stylesheet",
@@ -42,31 +50,30 @@ if (argv.stylesheet !== "") {
   cssLink = argv.stylesheet;
 }
 
+const filePath = argv.config || argv.input;
+if (!filePath) {
+  console.log(chalk.bold.red(`Please specify either -i option or -c option`));
+}
+
 checkInput();
 
 // check input path status
 async function checkInput() {
   await trackDistFolder();
-  fs.stat(argv.input.join(" "), (err, stats) => {
+  fs.stat(filePath.join(" "), (err, stats) => {
     if (err) {
-      console.log(chalk.bold.red(`${argv.input.join(" ")} does not exist!`));
+      console.log(chalk.bold.red(`${filePath.join(" ")} does not exist!`));
       return process.exit(-1);
     }
 
     if (stats.isDirectory()) {
-      folder.readFolder(
-        argv.input.join(" "),
-        cssLink,
-        argv.lang,
-        htmlContainer
-      ); // folder
-    } else if (
-      stats.isFile() &&
-      path.extname(argv.input.join(" ")) === ".txt"
-    ) {
-      file.readFile(argv.input.join(" "), cssLink, argv.lang, htmlContainer); // text file
-    } else if (stats.isFile() && path.extname(argv.input.join(" ")) === ".md") {
-      readMDFile(argv.input.join(" "), cssLink, argv.lang, htmlContainer); // markdown file
+      folder.readFolder(filePath.join(" "), cssLink, argv.lang, htmlContainer); // folder
+    } else if (stats.isFile() && path.extname(filePath.join(" ")) === ".json") {
+      readJson(filePath.join(" ")); // json file
+    } else if (stats.isFile() && path.extname(filePath.join(" ")) === ".txt") {
+      file.readFile(filePath.join(" "), cssLink, argv.lang, htmlContainer); // text file
+    } else if (stats.isFile() && path.extname(filePath.join(" ")) === ".md") {
+      readMDFile(filePath.join(" "), cssLink, argv.lang, htmlContainer); // markdown file
     } else {
       console.log("Invalid file extension, it should be .txt or .md");
     }
