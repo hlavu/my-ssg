@@ -1,65 +1,39 @@
 const fs = require("fs");
-const fileModule = require("./readFile");
+const { readFile } = require("./readTextFile");
 const { readMDFile } = require("./readMDFile");
-const html = require("./generateHTML");
+const { generateHTML } = require("./generateHTML");
 const path = require("path");
-let body = "";
 
-module.exports.readFolder = function (
-  inputPath,
-  cssLink,
-  language,
-  outputContainer
-) {
-  fs.readdir(inputPath, (err, files) => {
+module.exports.readFolder = function (pathToFile, stylesheet, language, outputContainer) {
+  fs.readdir(pathToFile, (err, files) => {
     if (err) {
-      return console.log(err);
+      console.log(chalk.bold.red("***Cannot read the folder!***"));
+      return process.exit(-1);
     }
 
-    const sortedFile = files.filter(
-      (file) => path.extname(`${inputPath}/${file}`) === ".txt"
-    );
-
-    sortedFile.forEach((file) => {
-      const fileName = fileModule.readFile(
-        `${inputPath}/${file}`,
-        cssLink,
-        language,
-        outputContainer
-      );
-
-      const url = `./${encodeURI(fileName)}.html`;
-
+    let body = "";
+    // Sorted the array of directory's content and filter only ".txt" files
+    const textFile = files.filter((file) => path.extname(`${pathToFile}/${file}`) === ".txt");
+    textFile.forEach((file) => {
       // index.html body
-      body += `<a href=\"${url}\">${fileName}</a>\n`;
+      body += getBodyHTML(`${pathToFile}/${file}`, stylesheet, language, outputContainer, ".txt");
     });
 
     // Sorted the array of directory's content and filter only ".md" files
-    const sortedMDFile = files.filter(
-      (file) => path.extname(`${inputPath}/${file}`) === ".md"
-    );
-
-    sortedMDFile.forEach((file) => {
-      const fileName = readMDFile(
-        `${inputPath}/${file}`,
-        cssLink,
-        language,
-        outputContainer
-      );
-
-      const url = `./${encodeURI(fileName)}.html`;
-
-      // Add links of the generated HTML files to index.html body
-      body += `<a href=\"${url}\">${fileName}</a>\n`;
+    const mdFile = files.filter((file) => path.extname(`${pathToFile}/${file}`) === ".md");
+    mdFile.forEach((file) => {
+     body += getBodyHTML(`${pathToFile}/${file}`, stylesheet, language, outputContainer, ".md");
     });
 
     // create index.html
-    html.generateHTML(
-      language,
-      "index",
-      cssLink,
-      `<h4>Generated Sites</h4>\n${body}`,
-      outputContainer
-    );
+    generateHTML(language, "index", stylesheet, `<h4>Generated Sites</h4>\n${body}`, outputContainer);
   });
 };
+
+function getBodyHTML(path, stylesheet, language, outputContainer, fileExtension){
+  let fileName = fileExtension == ".txt" 
+                 ? readFile(path, stylesheet, language, outputContainer) 
+                 : readMDFile(path, stylesheet, language, outputContainer) ;
+  let url = `./${encodeURI(fileName)}.html`;
+  return `<a href=\"${url}\">${fileName}</a><br>\n`;
+}

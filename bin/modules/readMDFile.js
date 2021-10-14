@@ -1,38 +1,32 @@
 const fs = require("fs");
-const html = require("./generateHTML");
+const { generateHTML } = require("./generateHTML");
 const path = require("path");
-let body = "";
 
-module.exports.readMDFile = function (
-  inputPath,
-  cssLink,
-  language,
-  outputContainer
-) {
+
+module.exports.readMDFile = function (pathToFile, stylesheet, language, outputContainer) {
+  let body = "";
   try {
-    const data = fs.readFileSync(inputPath, "utf8");
+    const data = fs.readFileSync(pathToFile, "utf8");
     body = data
-      // Search for all occurences of Markdown links and replace them with the corresponding <a> tags.
-      .replace(/(?<!!)\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
-      .replace(/`([^`].*?)`/gim, "<code>$1</code>") // Search for all occurences of Inline code and replace them with the corresponding <code> tags.
-      .replace(/---\r?\n/gim, "<hr>") // Search for all occurences of horizontal rules and replace them with the corresponding <hr> tag.
+      .replace(/(?<!!)\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>") // replaces md link with <a> tags
+      .replace(/`([^`].*?)`/gim, "<code>$1</code>") // replaces inline code with <code> tags.
+      .replace(/---\r?\n/gim, "<hr>") // replaces horizontal rules with <hr> tag.
       .split(/\r?\n\r?\n/)
       .map((para) => {
-        // For each "paragraph", search for any occurence of Markdown heading (# [string] or ## [string]) and replace them with the corresponding HTML header tag (h1 or h2). If heading not found, replace the "paragraph" with <p> tag.
-        if (para.startsWith("# ")) {
-          return `<h1>${para.replace(/# /, "")}</h1>\n\n`;
-        } else if (para.startsWith("## ")) {
-          return `<h2>${para.replace(/# /, "")}</h2>\n\n`;
+        if (para.startsWith("# ")) {  
+          return `<h1>${para.replace(/# /, "")}</h1>\n\n`; // replaces # [string] with h1 tags
+        } else if (para.startsWith("## ")) {                
+          return `<h2>${para.replace(/# /, "")}</h2>\n\n`; // replaces ## [string] with h2 tags
         }
-        return `<p>${para.replace(/\r?\n/, " ")}</p>\n\n`;
+        return `<p>${para.replace(/\r?\n/, " ")}</p>\n\n`; // adds <p> tags for a paragraph
       })
       .join(" ");
   } catch (err) {
-    console.error(err);
+     console.log(chalk.bold.red("***Cannot read the file!***"));
+     return process.exit(-1);
   }
 
-  const title = path.basename(inputPath, ".md");
-
-  html.generateHTML(language, title, cssLink, body, outputContainer);
+  const title = path.basename(pathToFile, ".md");
+  generateHTML(language, title, stylesheet, body, outputContainer);
   return title;
 };

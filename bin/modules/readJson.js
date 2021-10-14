@@ -1,35 +1,17 @@
 const fs = require("fs");
-const path = require("path");
+const check = require("./checkInput");
 
-const htmlContainer = "./dist";
-const file = require("./readFile");
-const folder = require("./readFolder");
-
-module.exports.readJson = (inputPath) => {
-  fs.readFile(inputPath, "utf8", (err, json) => {
+module.exports.readJson = (pathToFile) => {
+  fs.readFile(pathToFile, "utf8", (err, json) => {
     if (err) {
-      console.error(err);
+      console.log(chalk.bold.red("***Cannot read the file!***"));
       return process.exit(-1);
     }
     const data = JSON.parse(json);
 
-    const cssLink = data.stylesheet || "";
-    const lang = data.lang || "en-CA";
+    const stylesheet = data.stylesheet || "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css";
+    const language = data.lang || "en-CA";
 
-    fs.stat(data.input, (err, stats) => {
-      if (err) {
-        console.log(err);
-      }
-
-      if (stats.isDirectory()) {
-        folder.readFolder(data.input, cssLink, lang, htmlContainer); // folder
-      } else if (stats.isFile() && path.extname(data.input) === ".txt") {
-        file.readFile(data.input, cssLink, lang, htmlContainer); // text file
-      } else if (stats.isFile() && path.extname(data.input) === ".md") {
-        readMDFile(data.input, cssLink, lang, htmlContainer); // markdown file
-      } else {
-        console.log("Invalid file extension, it should be .txt or .md");
-      }
-    });
+    check.checkInput(data.input, stylesheet, language, true);
   });
 };
