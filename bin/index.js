@@ -21,6 +21,13 @@ const argv = yargs
     type: "array",
     demandOption: false,
   })
+  .option("a", {
+    alias: "assets",
+    describe: "path to assets folder",
+    default: "",
+    type: "array",
+    demandOption: false,
+  })
   .option("s", {
     alias: "stylesheet",
     describe: "css link",
@@ -55,7 +62,7 @@ if(argv.input && path.extname(filePath.join(" ")) == ".json")
   showError("For .json extension, please use with -c option!");
 }
 
-checkInput(filePath.join(" "), argv.stylesheet, argv.lang);
+checkInput(filePath.join(" "), argv.stylesheet, argv.lang, argv.assets.join());
 
 function showError(err){
   console.log(chalk.green("****--------------------------------**********----------------------------------****\n"));

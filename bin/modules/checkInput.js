@@ -22,15 +22,33 @@ async function trackDistFolder() {
     console.log(chalk.bold.red("***Cannot create dist folder!***"));
     return process.exit(-1);
   }
+
+  try {
+    await fsPromise.mkdir("./dist/assets");
+    console.log(chalk.bold.green("--- assets folder is created under ./dist successfully! ---"));
+  } catch (err) {
+    console.log(chalk.bold.red("***Cannot create assets folder!***"));
+    return process.exit(-1);
+  }
 }
 
 // check input path status
-module.exports.checkInput= async function (pathToFile, stylesheet, language, isFromJSON = false) {
+module.exports.checkInput= async function (pathToFile, stylesheet, language, assets, isFromJSON = false) {
 
   if(!isFromJSON){
     await trackDistFolder();
   }
-  
+
+  if(assets !== ""){
+   let copyFolder = require("fs-extra");
+    try{
+        await copyFolder.copy(assets, "./dist/assets");
+        console.log(chalk.bold.green("--- assets folder is copied successfully! ---"));
+    } catch(err){
+        console.log(chalk.bold.red("***Cannot copy assets folder!***"));
+        return process.exit(-1);
+    }
+  }
 
   fs.stat(pathToFile, (err, stats) => {
     if (err) {

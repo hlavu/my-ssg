@@ -7,7 +7,9 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 -   Allows user to specify a URL to a `CSS stylesheet` or a language used in the created HTML files if they hope to
 -   If users' input is a folder, an `index.html` file will be generated automatically and linked to other generated HTML files.
 -   All generated HTML files will be stored in `./dist` folder which is created by default
--   If the input is a markdown file, all Markdown's `Heading1`, `Heading2`, `Link`, `inline code` and `horizontal rule` will be converted into their corresponding HTML element.
+-   If the input is a markdown file, all Markdown's feature will be converted into their corresponding HTML element.
+-   User can store all options with values in a `config.json` file for shorthand  
+-   The tool supports static assets for images
 
 ## Options
 
@@ -19,6 +21,7 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 | -s, --stylesheet <'link-to-css-stylesheet'> | applies css link to `<head>` of HTML file           |
 | -l, --lang <'lang code'> Default value is `en-CA`| applies specified lang code to `<html>` of HTML file|
 | -c, --config <'config file'>                | use to store `input` or `output` or `lang` to be processed |
+| -a, --assets <'path-to-assets-folder'>                | specifies assets folder to be processed |
 
 ## Usage
 
@@ -57,6 +60,11 @@ node index.js -i 'Silver Blaze.txt' -l vi
 6. For using config file:
 ```
 node index.js -c filename.json
+```
+
+7. For using assets folder:
+```
+node index.js -i testing -a public/assets
 ```
 
 ## Example

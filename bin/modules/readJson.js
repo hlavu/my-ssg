@@ -11,7 +11,8 @@ module.exports.readJson = (pathToFile) => {
 
     const stylesheet = data.stylesheet || "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css";
     const language = data.lang || "en-CA";
+    const assets = data.assets || "";
 
-    check.checkInput(data.input, stylesheet, language, true);
+    check.checkInput(data.input, stylesheet, language, assets, true);
   });
 };
