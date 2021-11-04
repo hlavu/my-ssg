@@ -4,24 +4,24 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 
 ## Features
 
--   Allows user to specify a URL to a `CSS stylesheet` or a language used in the created HTML files if they hope to
--   If users' input is a folder, an `index.html` file will be generated automatically and linked to other generated HTML files.
--   All generated HTML files will be stored in `./dist` folder which is created by default
--   If the input is a markdown file, all Markdown's feature will be converted into their corresponding HTML element.
--   User can store all options with values in a `config.json` file for shorthand  
--   The tool supports static assets for images
+- Allows user to specify a URL to a `CSS stylesheet` or a language used in the created HTML files if they hope to
+- If users' input is a folder, an `index.html` file will be generated automatically and linked to other generated HTML files.
+- All generated HTML files will be stored in `./dist` folder which is created by default
+- If the input is a markdown file, all Markdown's feature will be converted into their corresponding HTML element.
+- User can store all options with values in a `config.json` file for shorthand
+- The tool supports static assets for images
 
 ## Options
 
-| Option                                      | Function                                            |
-| ------------------------------------------- | --------------------------------------------------- |
-| -i, --input <'path-to-txt'> `required`      | specifies an `input` file or folder to be processed |
-| -v, --version                               | shows tool's name and the version number            |
-| -h, --help                                  | displays all available options                      |
-| -s, --stylesheet <'link-to-css-stylesheet'> | applies css link to `<head>` of HTML file           |
-| -l, --lang <'lang code'> Default value is `en-CA`| applies specified lang code to `<html>` of HTML file|
-| -c, --config <'config file'>                | use to store `input` or `output` or `lang` to be processed |
-| -a, --assets <'path-to-assets-folder'>                | specifies assets folder to be processed |
+| Option                                            | Function                                                   |
+| ------------------------------------------------- | ---------------------------------------------------------- |
+| -i, --input <'path-to-txt'> `required`            | specifies an `input` file or folder to be processed        |
+| -v, --version                                     | shows tool's name and the version number                   |
+| -h, --help                                        | displays all available options                             |
+| -s, --stylesheet <'link-to-css-stylesheet'>       | applies css link to `<head>` of HTML file                  |
+| -l, --lang <'lang code'> Default value is `en-CA` | applies specified lang code to `<html>` of HTML file       |
+| -c, --config <'config file'>                      | use to store `input` or `output` or `lang` to be processed |
+| -a, --assets <'path-to-assets-folder'>            | specifies assets folder to be processed                    |
 
 ## Usage
 
@@ -58,11 +58,13 @@ node index.js -i 'Silver Blaze.txt' -l vi
 ```
 
 6. For using config file:
+
 ```
 node index.js -c filename.json
 ```
 
 7. For using assets folder:
+
 ```
 node index.js -i testing -a public/assets
 ```
@@ -72,6 +74,7 @@ node index.js -i testing -a public/assets
 1. testing.txt -> command: `node index.js -i testing.txt -s https://cdn.jsdelivr.net/npm/water.css@2/out/water.css -l en`
 
 testing.txt
+
 ```
 This is a sentence!
 
@@ -86,25 +89,25 @@ Transfered into:
 ```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>      
-        <title>testing</title>
-        <meta charset="utf-8" />
+  <head>
+    <title>testing</title>
+    <meta charset="utf-8" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
-        />
-    </head>
-    <body>
-        <p>This is a sentence!</p>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+  </head>
+  <body>
+    <p>This is a sentence!</p>
 
-        <p>
-            This is a paragraph: Lorem Ipsum is simply dummy text of the
-            printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s.
-        </p>
-    </body>
+    <p>
+      This is a paragraph: Lorem Ipsum is simply dummy text of the printing and
+      typesetting industry. Lorem Ipsum has been the industry's standard dummy
+      text ever since the 1500s.
+    </p>
+  </body>
 </html>
 ```
 
@@ -129,36 +132,36 @@ Transfered into:
 ```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <title>testing</title>
-        <meta charset="utf-8" />
+  <head>
+    <title>testing</title>
+    <meta charset="utf-8" />
 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
-        />
-    </head>
-    <body>
-        <h1>MY-SSG</h1>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+  </head>
+  <body>
+    <h1>MY-SSG</h1>
 
-        <p>
-            My Static Site Generator, is a command line tool, created to convert
-            <code>.txt</code> or <code>.md</code> file into a <code>.html</code> file by using Node.js.
-        </p>
+    <p>
+      My Static Site Generator, is a command line tool, created to convert
+      <code>.txt</code> or <code>.md</code> file into a <code>.html</code> file
+      by using Node.js.
+    </p>
 
-        <h2>Features:</h2>
+    <h2>Features:</h2>
 
-        <p>
-            - Automatically parse title from input. (A title is defined by being
-            the first line followed by 2 blank lines) - All generated HTML files
-            will be placed into a <code>./dist</code> folder - All generated HTML files
-            comes with
-            <a href="https://github.com/kognise/water.css">Water.css</a> by
-            default. - Users can specify a URL to a CSS stylesheet.
-        </p>
-    </body>
+    <p>
+      - Automatically parse title from input. (A title is defined by being the
+      first line followed by 2 blank lines) - All generated HTML files will be
+      placed into a <code>./dist</code> folder - All generated HTML files comes
+      with <a href="https://github.com/kognise/water.css">Water.css</a> by
+      default. - Users can specify a URL to a CSS stylesheet.
+    </p>
+  </body>
 </html>
 ```
 

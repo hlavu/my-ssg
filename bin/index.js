@@ -47,28 +47,33 @@ const argv = yargs
   .alias("h", "help")
   .help().argv;
 
-const filePath = argv.config == "" ? argv.input :  argv.config;
+const filePath = argv.config == "" ? argv.input : argv.config;
 if (!filePath) {
   showError("Please specify either -i option or -c option!");
 }
 
-if(argv.config != "" && path.extname(filePath.join(" ")) != ".json")
-{
+if (argv.config != "" && path.extname(filePath.join(" ")) != ".json") {
   showError("Invalid file extension, it should be .json!");
 }
 
-if(argv.input && path.extname(filePath.join(" ")) == ".json")
-{
+if (argv.input && path.extname(filePath.join(" ")) == ".json") {
   showError("For .json extension, please use with -c option!");
 }
 
 checkInput(filePath.join(" "), argv.stylesheet, argv.lang, argv.assets.join());
 
-function showError(err){
-  console.log(chalk.green("****--------------------------------**********----------------------------------****\n"));
+function showError(err) {
+  console.log(
+    chalk.green(
+      "****--------------------------------**********----------------------------------****\n"
+    )
+  );
   yargs.showHelp();
-  console.log(chalk.green("\n****--------------------------------**********----------------------------------****\n"));
+  console.log(
+    chalk.green(
+      "\n****--------------------------------**********----------------------------------****\n"
+    )
+  );
   console.log(chalk.bold.red(`***${err}***`));
   return process.exit(-1);
 }
-

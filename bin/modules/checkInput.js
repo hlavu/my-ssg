@@ -17,7 +17,9 @@ async function trackDistFolder() {
 
   try {
     await fsPromise.mkdir("./dist");
-    console.log(chalk.bold.green("--- dist folder is created successfully! ---"));
+    console.log(
+      chalk.bold.green("--- dist folder is created successfully! ---")
+    );
   } catch (err) {
     console.log(chalk.bold.red("***Cannot create dist folder!***"));
     return process.exit(-1);
@@ -25,7 +27,11 @@ async function trackDistFolder() {
 
   try {
     await fsPromise.mkdir("./dist/assets");
-    console.log(chalk.bold.green("--- assets folder is created under ./dist successfully! ---"));
+    console.log(
+      chalk.bold.green(
+        "--- assets folder is created under ./dist successfully! ---"
+      )
+    );
   } catch (err) {
     console.log(chalk.bold.red("***Cannot create assets folder!***"));
     return process.exit(-1);
@@ -33,20 +39,27 @@ async function trackDistFolder() {
 }
 
 // check input path status
-module.exports.checkInput= async function (pathToFile, stylesheet, language, assets, isFromJSON = false) {
-
-  if(!isFromJSON){
+module.exports.checkInput = async function (
+  pathToFile,
+  stylesheet,
+  language,
+  assets,
+  isFromJSON = false
+) {
+  if (!isFromJSON) {
     await trackDistFolder();
   }
 
-  if(assets !== ""){
-   let copyFolder = require("fs-extra");
-    try{
-        await copyFolder.copy(assets, "./dist/assets");
-        console.log(chalk.bold.green("--- assets folder is copied successfully! ---"));
-    } catch(err){
-        console.log(chalk.bold.red("***Cannot copy assets folder!***"));
-        return process.exit(-1);
+  if (assets !== "") {
+    let copyFolder = require("fs-extra");
+    try {
+      await copyFolder.copy(assets, "./dist/assets");
+      console.log(
+        chalk.bold.green("--- assets folder is copied successfully! ---")
+      );
+    } catch (err) {
+      console.log(chalk.bold.red("***Cannot copy assets folder!***"));
+      return process.exit(-1);
     }
   }
 
@@ -60,24 +73,20 @@ module.exports.checkInput= async function (pathToFile, stylesheet, language, ass
     const fileExtension = path.extname(pathToFile);
 
     if (stats.isDirectory()) {
-
       readFolder(pathToFile, stylesheet, language, "./dist"); // folder
-
     } else if (isFile && fileExtension === ".json") {
-
       readJson(pathToFile); // json file
-
     } else if (isFile && fileExtension === ".txt") {
-
       readFile(pathToFile, stylesheet, language, "./dist"); // text file
-
     } else if (isFile && fileExtension === ".md") {
-
       readMDFile(pathToFile, stylesheet, language, "./dist"); // markdown file
-
     } else {
-      console.log(chalk.bold.red("***Invalid file extension, it should be .txt or .md!***"));
+      console.log(
+        chalk.bold.red(
+          "***Invalid file extension, it should be .txt or .md!***"
+        )
+      );
       return process.exit(-1);
     }
   });
-}
+};

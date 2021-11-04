@@ -1,5 +1,6 @@
 const fs = require("fs");
 const check = require("./checkInput");
+const chalk = require("chalk");
 
 module.exports.readJson = (pathToFile) => {
   fs.readFile(pathToFile, "utf8", (err, json) => {
@@ -9,7 +10,9 @@ module.exports.readJson = (pathToFile) => {
     }
     const data = JSON.parse(json);
 
-    const stylesheet = data.stylesheet || "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css";
+    const stylesheet =
+      data.stylesheet ||
+      "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css";
     const language = data.lang || "en-CA";
     const assets = data.assets || "";
 
