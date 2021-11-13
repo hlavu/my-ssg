@@ -31,14 +31,12 @@ const argv = yargs
   .option("s", {
     alias: "stylesheet",
     describe: "css link",
-    default: "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
     type: "string",
     demandOption: false,
   })
   .option("l", {
     alias: "lang",
     describe: "language used in HTML",
-    default: "en-CA",
     type: "string",
     demandOption: false,
   })

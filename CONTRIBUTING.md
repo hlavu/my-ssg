@@ -31,3 +31,11 @@ Run `npm run prettier-check` to check whether all files are formatted with Prett
 Run `npm run eslint` to find errors in all files with Eslint
 
 Run `npm run eslint-fix` to fix fixable errors
+
+## Use Jest Testing Framework
+
+Run `npm test` to run all test cases
+
+Run `npm test filename.test.js` to run test for a specific file
+
+Run `npm test -- --watch` to start the test in watch mode

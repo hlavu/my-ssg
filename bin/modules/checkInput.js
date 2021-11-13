@@ -41,8 +41,8 @@ async function trackDistFolder() {
 // check input path status
 module.exports.checkInput = async function (
   pathToFile,
-  stylesheet,
-  language,
+  stylesheet = "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+  language = "en-CA",
   assets,
   isFromJSON = false
 ) {

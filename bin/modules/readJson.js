@@ -3,6 +3,14 @@ const check = require("./checkInput");
 const chalk = require("chalk");
 
 module.exports.readJson = (pathToFile) => {
+  if (pathToFile === "") {
+    throw new Error(chalk.bold.red("***Cannot read empty path!***"));
+  }
+
+  if (typeof pathToFile === "undefined") {
+    throw new Error(chalk.bold.red("***pathToFile should be provided!***"));
+  }
+
   fs.readFile(pathToFile, "utf8", (err, json) => {
     if (err) {
       console.log(chalk.bold.red("***Cannot read the file!***"));
