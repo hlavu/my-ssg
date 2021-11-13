@@ -7,9 +7,9 @@ const chalk = require("chalk");
 
 module.exports.readFolder = function (
   pathToFile,
-  stylesheet,
-  language,
-  outputContainer
+  stylesheet = "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+  language = "en-CA",
+  outputContainer = "./dist"
 ) {
   fs.readdir(pathToFile, (err, files) => {
     if (err) {
@@ -49,10 +49,10 @@ module.exports.readFolder = function (
 
     // create index.html
     generateHTML(
-      language,
       "index",
-      stylesheet,
       `<h4>Generated Sites</h4>\n${body}`,
+      language,
+      stylesheet,
       outputContainer
     );
   });

@@ -5,9 +5,9 @@ const chalk = require("chalk");
 
 module.exports.readMDFile = function (
   pathToFile,
-  stylesheet,
-  language,
-  outputContainer
+  stylesheet = "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+  language = "en-CA",
+  outputContainer = "./dist"
 ) {
   let body = "";
   let markdown = require("markdown-it")({
@@ -25,6 +25,6 @@ module.exports.readMDFile = function (
   }
 
   const title = path.basename(pathToFile, ".md");
-  generateHTML(language, title, stylesheet, body, outputContainer);
+  generateHTML(title, body, language, stylesheet, outputContainer);
   return title;
 };

@@ -5,9 +5,9 @@ const chalk = require("chalk");
 
 module.exports.readFile = function (
   pathToFile,
-  stylesheet,
-  language,
-  outputContainer
+  stylesheet = "https://cdn.jsdelivr.net/npm/water.css@2/out/water.css",
+  language = "en-CA",
+  outputContainer = "./dist"
 ) {
   let body = "";
   try {
@@ -17,11 +17,18 @@ module.exports.readFile = function (
       .map((para) => `<p>${para.replace(/\r?\n/, " ")}</p>\n\n`)
       .join(" ");
   } catch (err) {
-    console.log(chalk.bold.red("***Cannot read the file!***"));
-    return process.exit(-1);
+    // console.log(chalk.bold.red("***Cannot read the file!***"));
+    // return process.exit(-1);
+    if (pathToFile === "") {
+      throw new Error(chalk.bold.red("***Cannot read empty path!***"));
+    }
+
+    if (typeof pathToFile === "undefined") {
+      throw new Error(chalk.bold.red("***pathToFile should be provided!***"));
+    }
   }
 
   const title = path.basename(pathToFile, ".txt");
-  generateHTML(language, title, stylesheet, body, outputContainer);
+  generateHTML(title, body, language, stylesheet, outputContainer);
   return title;
 };
