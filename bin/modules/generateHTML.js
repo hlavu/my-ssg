@@ -18,17 +18,18 @@ module.exports.generateHTML = function (
     lang: `${language}`,
   });
 
+  if (typeof title === "undefined") {
+    throw new Error(chalk.bold.red("***title should be provided!***"));
+  }
+
+  if (title === "") {
+    throw new Error(chalk.bold.red("***title cannot be empty!***"));
+  }
+
   fs.writeFile(`${htmlContainer}/${title}.html`, html, (err) => {
     if (err) {
-      // console.log(chalk.bold.red("***Cannot write HTML file!***"));
-      // return process.exit(-1);
-      if (typeof title === "undefined") {
-        throw new Error(chalk.bold.red("***title should be provided!***"));
-      }
-
-      if (title === "") {
-        throw new Error(chalk.bold.red("***title cannot be empty!***"));
-      }
+      console.log(chalk.bold.red("***Cannot write HTML file!***"));
+      return process.exit(-1);
     }
   });
 
