@@ -14,7 +14,7 @@ module.exports.readJson = (pathToFile) => {
   fs.readFile(pathToFile, "utf8", (err, json) => {
     if (err) {
       console.log(chalk.bold.red("***Cannot read the file!***"));
-      return process.exit(-1);
+      // return process.exit(-1);
     }
     const data = JSON.parse(json);
 

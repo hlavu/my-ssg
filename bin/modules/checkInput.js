@@ -1,7 +1,7 @@
 const { readFolder } = require("./readFolder");
 const { readFile } = require("./readTextFile");
 const { readMDFile } = require("./readMDFile");
-const { readJson } = require("./readJSON");
+const { readJson } = require("./readJson");
 const path = require("path");
 const fs = require("fs");
 const fsPromise = require("fs-promise");
