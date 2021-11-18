@@ -4,22 +4,15 @@ const { readMDFile } = require("./readMDFile");
 const { readJson } = require("./readJson");
 const path = require("path");
 const fs = require("fs");
-const fsPromise = require("fs-promise");
+const fsPromise = require("fs/promises");
 const chalk = require("chalk");
 
 // delete output folder "dist" then create new one
 async function trackDistFolder() {
-  try {
-    await fsPromise.rmdir("./dist", { recursive: true });
-  } catch (err) {
-    //ignore err
-  }
+  await fsPromise.rm("./dist", { recursive: true });
 
   try {
     await fsPromise.mkdir("./dist");
-    console.log(
-      chalk.bold.green("--- dist folder is created successfully! ---")
-    );
   } catch (err) {
     console.log(chalk.bold.red("***Cannot create dist folder!***"));
     return process.exit(-1);
@@ -27,11 +20,6 @@ async function trackDistFolder() {
 
   try {
     await fsPromise.mkdir("./dist/assets");
-    console.log(
-      chalk.bold.green(
-        "--- assets folder is created under ./dist successfully! ---"
-      )
-    );
   } catch (err) {
     console.log(chalk.bold.red("***Cannot create assets folder!***"));
     return process.exit(-1);
@@ -54,19 +42,16 @@ module.exports.checkInput = async function (
     let copyFolder = require("fs-extra");
     try {
       await copyFolder.copy(assets, "./dist/assets");
-      console.log(
-        chalk.bold.green("--- assets folder is copied successfully! ---")
-      );
     } catch (err) {
       console.log(chalk.bold.red("***Cannot copy assets folder!***"));
-      return process.exit(-1);
+      return process.exit(1);
     }
   }
 
   fs.stat(pathToFile, (err, stats) => {
     if (err) {
-      console.log(chalk.bold.red(`***${pathToFile} does not exist!***`));
-      return process.exit(-1);
+      console.log(`***${pathToFile} does not exist!***`);
+      return process.exit(1);
     }
 
     const isFile = stats.isFile();
@@ -81,12 +66,7 @@ module.exports.checkInput = async function (
     } else if (isFile && fileExtension === ".md") {
       readMDFile(pathToFile, stylesheet, language, "./dist"); // markdown file
     } else {
-      console.log(
-        chalk.bold.red(
-          "***Invalid file extension, it should be .txt or .md!***"
-        )
-      );
-      return process.exit(-1);
+      console.log("***Invalid file extension, it should be .txt or .md!***");
     }
   });
 };
