@@ -18,19 +18,13 @@ module.exports.generateHTML = function (
     lang: `${language}`,
   });
 
-  fs.writeFile(`${htmlContainer}/${title}.html`, html, (err) => {
-    if (err) {
-      // console.log(chalk.bold.red("***Cannot write HTML file!***"));
-      // return process.exit(-1);
-      if (typeof title === "undefined") {
-        throw new Error(chalk.bold.red("***title should be provided!***"));
-      }
-
-      if (title === "") {
-        throw new Error(chalk.bold.red("***title cannot be empty!***"));
-      }
-    }
-  });
+  if (typeof title === "undefined") {
+    throw new Error(chalk.bold.red("***title should be provided!***"));
+  } else if (title === "") {
+    throw new Error(chalk.bold.red("***title cannot be empty!***"));
+  } else {
+    fs.writeFile(`${htmlContainer}/${title}.html`, html, () => {});
+  }
 
   // if (title === "index") {
   //   console.log(

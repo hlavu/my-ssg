@@ -21,9 +21,9 @@ describe("test generateHTML(title, body, language, stylesheet, htmlContainer)", 
     );
   });
 
-  test("function should throw an error when title is an empty string", () => {
+  test("function should throw an error when title is an empty string", async () => {
     try {
-      generateHTML("");
+      await generateHTML("");
     } catch (err) {
       expect(err).toEqual(
         new Error(chalk.bold.red("***title cannot be empty!***"))
@@ -31,9 +31,9 @@ describe("test generateHTML(title, body, language, stylesheet, htmlContainer)", 
     }
   });
 
-  test("function should throw an error when title is not provided as an arg", () => {
+  test("function should throw an error when title is not provided as an arg", async () => {
     try {
-      generateHTML();
+      await generateHTML();
     } catch (err) {
       expect(err).toEqual(
         new Error(chalk.bold.red("***title should be provided!***"))
