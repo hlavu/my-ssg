@@ -2,7 +2,6 @@
 
 const pjson = require("../package.json");
 const { checkInput } = require("./modules/checkInput");
-const chalk = require("chalk");
 const path = require("path");
 const yargs = require("yargs");
 
@@ -61,17 +60,8 @@ if (argv.input && path.extname(filePath.join(" ")) == ".json") {
 checkInput(filePath.join(" "), argv.stylesheet, argv.lang, argv.assets.join());
 
 function showError(err) {
-  console.log(
-    chalk.green(
-      "****--------------------------------**********----------------------------------****\n"
-    )
-  );
   yargs.showHelp();
-  console.log(
-    chalk.green(
-      "\n****--------------------------------**********----------------------------------****\n"
-    )
-  );
-  console.log(chalk.bold.red(`***${err}***`));
-  return process.exit(-1);
+
+  console.log(`\n***${err}***`);
+  return process.exit(1);
 }
