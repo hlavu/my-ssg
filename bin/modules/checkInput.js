@@ -9,7 +9,9 @@ const chalk = require("chalk");
 
 // delete output folder "dist" then create new one
 async function trackDistFolder() {
-  await fsPromise.rm("./dist", { recursive: true });
+  if (fs.existsSync("./dist")) {
+    await fsPromise.rm("./dist", { recursive: true });
+  }
 
   try {
     await fsPromise.mkdir("./dist");
