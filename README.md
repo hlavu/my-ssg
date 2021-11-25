@@ -11,6 +11,11 @@ My Static Site Generator is a command line tool created to convert `.txt` or `.m
 - User can store all options with values in a `config.json` file for shorthand
 - The tool supports static assets for images
 
+## Installation
+
+1. Install [NodeJS](https://nodejs.org/en/)
+2. Install the package `npm i ssg-cli`
+
 ## Options
 
 | Option                                            | Function                                                   |
