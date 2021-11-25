@@ -52,4 +52,4 @@ Options:
   -h, --help        Show help                                          [boolean]"
 `;
 
-exports[`end-to-end integration prints version when --version option is passed 1`] = `"ssg-cli 1.0.0"`;
+exports[`end-to-end integration prints version when --version option is passed 1`] = `"ssg-cli 1.0.1"`;
